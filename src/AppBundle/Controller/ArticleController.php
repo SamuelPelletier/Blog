@@ -37,11 +37,45 @@ class ArticleController extends Controller{
 	}
 	
 	/**
-	 * @Route("/add", name="artcile_add")
+	 * @Route("/add", name="article_add")
 	 */
-	public function addAction(){
+	public function addAction(Request $request){
 		$article = new Article();
 		$form = $this->createForm(ArticleType::class, $article);
+		$em = $this->getDoctrine()->getManager();
+		
+		$form->handleRequest($request);
+		
+		if($form->isValid()){
+			$em->persist($article);
+			$em->flush();
+			
+			$this->addFlash('success', 'The article was save !');
+			
+			return $this->redirectToRoute('article_homepage');
+		}
+		
 		return $this->render('article/add.html.twig', array('articleForm'=>$form->createView()));
 	}
+	
+	/**
+	 * @Route("/update/{id}", name="article_update",requirements={"id" = "\d+"})
+	 */
+	public function updateAction(Article $article, Request $request){
+		$form = $this->createForm(ArticleType::class, $article);
+		$em = $this->getDoctrine()->getManager();
+		
+		$form->handleRequest($request);
+		
+		if($form->isValid()){
+			$em->flush();
+				
+			$this->addFlash('success', 'The article was upadte successefuly !');
+				
+			return $this->redirectToRoute('article_homepage');
+		}
+		
+		return $this->render('article/add.html.twig', array('articleForm'=>$form->createView(), 'article'=>$article));
+	}
+	
 }
