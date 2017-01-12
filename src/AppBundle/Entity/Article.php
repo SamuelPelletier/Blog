@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,50 +8,49 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table
  */
-class Article{
-	
-	/**
-	 * @ORM\Column(type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
-	
-	/**
-	 * @ORM\Column(type="string", length=255)
-	 * @Assert\NotBlank(message="Please choose a title")
-	 */
-	private $title;
-	
-	
-	/**
-	 * @ORM\Column(type="string", length=255)
-	 */
-	private $headerImage;
-	
-	/**
-	 * @ORM\Column(type="string", length=255)
-	 * @Assert\NotBlank()
-	 */
-	private $author;
-	
-	/**
-	 * @ORM\Column(type="datetime", length=255)
-	 */
-	private $createdAt;
-	
-	/**
-	 * @ORM\Column(type="text", length=255)
-	 * @Assert\NotBlank()
-	 */
-	private $content;
-	
-	
-	
-	public function __construct()
-	{
-		$this->createdAt = new \Datetime();
-	}
+class Article
+{
+
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Please choose a title")
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Image()
+     */
+    private $headerImage;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private $author;
+
+    /**
+     * @ORM\Column(type="datetime", length=255)
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="text", length=255)
+     * @Assert\NotBlank()
+     */
+    private $content;
+
+    public function __construct()
+    {
+        $this->createdAt = new \Datetime();
+    }
 
     /**
      * Get id

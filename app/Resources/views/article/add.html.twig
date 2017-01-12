@@ -42,6 +42,9 @@
 			    </div>
 			    	{{ form_row(articleForm.author) }}
 			    	{{ form_row(articleForm.headerImage) }}
+			 {% if 'article_update' == app.request.get('_route') %}
+                <img src="{{ oldArticleImage }}" width="100" />
+            {% endif %}
 			    	{{ form_row(articleForm.content) }}
 			    {{ form_widget(articleForm) }}
 			    
